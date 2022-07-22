@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import Grid from "./grid.js";
-import Solver from "./solver.js";
+import Resolver from "./resolver.js";
 
 import "/styles.css";
 
-const Square = ({value, row, col, onCellValueChange}) => (
+const Cuadrado = ({value, row, col, onCellValueChange}) => (
     <input
         type="text"
         value={value === 0 ? "" : value}
@@ -26,7 +26,7 @@ const SudukoBoard = ({ puzzleGrid, onCellValueChange }) => (
             <tr key={idx}>
                 { row.map(cell => (
                     <td key={cell.col}>
-                        <Square
+                        <Cuadrado
                             value={cell.value}
                             row={cell.row}
                             col={cell.col}
@@ -46,12 +46,12 @@ function Sudoku({ puzzleString }) {
 
     function solve() {
         try {
-            new Solver(puzzle).solve();
+            new Resolver(puzzle).solve();
             setPuzzle(new Grid(puzzle.toFlatString()));
             setError("");
         } catch (e) {
-            console.debug("Couldn't solve the puzzle", e);
-            setError("Couldn't solve it, invalid puzzle");
+            console.debug("No pude resolver el Sudoku.", e);
+            setError("No se pudo resolver, sudoku inválido");
         }
     }
 
